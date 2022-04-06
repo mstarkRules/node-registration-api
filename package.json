@@ -1,0 +1,15 @@
+{
+  "name": "node-registration-api",
+  "version": "1.0.0",
+  "description": "a simple registration system api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MStarkRules",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3"
+  }
+}
