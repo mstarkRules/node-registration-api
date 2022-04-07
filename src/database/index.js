@@ -1,9 +1,9 @@
 const mongoose = require("mongoose");
 require("dotenv/config");
 
-const uri = `mongodb+srv://mstark:<${process.env.MONGO_PASSWORD}>@cluster0.pifsb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://mstark:${process.env.MONGO_PASSWORD}@cluster0.pifsb.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
-mongoose.connect(uri, { useMongoClient: true });
+mongoose.connect(uri);
 
 mongoose.Promise = global.Promise;
 
