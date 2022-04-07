@@ -3,6 +3,14 @@ const bcrypt = require("bcryptjs");
 const User = require("../models/User");
 const router = express.Router();
 const jwt = require("jsonwebtoken");
+const authConfig = require("../config/auth.json");
+
+//generates a jwt token to return to the user
+function generateToken(params = {}) {
+  return jwt.sign(params, authConfig.secret, {
+    expiresIn: 3600 * 24,
+  });
+}
 
 //creates post route and save the data on db
 router.post("/register", async (req, res) => {
@@ -17,7 +25,10 @@ router.post("/register", async (req, res) => {
     //clears the passwords before return response
     user.password = undefined;
 
-    return res.send({ user });
+    return res.send({
+      user,
+      token: generateToken({ id: user.id }),
+    });
   } catch (error) {
     return res.status(400).send({ error: "Registration failed" });
   }
@@ -42,8 +53,11 @@ router.post("/authenticate", async (req, res) => {
   //hides passwords in the route response
   user.password = undefined;
 
-  //returns user info in case success
-  res.send({ user });
+  //returns user info and token in case of success
+  res.send({
+    user,
+    token: generateToken({ id: user.id }),
+  });
 });
 
 module.exports = (app) => app.use("/auth", router);
