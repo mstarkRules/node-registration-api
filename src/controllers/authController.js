@@ -12,7 +12,7 @@ function generateToken(params = {}) {
   });
 }
 
-//creates post route and save the data on db
+//creates register route and save the data on db
 router.post("/register", async (req, res) => {
   const { email } = req.body;
   try {
@@ -25,6 +25,7 @@ router.post("/register", async (req, res) => {
     //clears the passwords before return response
     user.password = undefined;
 
+    //return user info and token in case of success
     return res.send({
       user,
       token: generateToken({ id: user.id }),
@@ -34,7 +35,7 @@ router.post("/register", async (req, res) => {
   }
 });
 
-//creates router to authenticate user before save some data
+//creates route to authenticate user
 router.post("/authenticate", async (req, res) => {
   const { email, password } = req.body;
 
