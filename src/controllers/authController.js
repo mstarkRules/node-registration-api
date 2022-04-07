@@ -39,6 +39,9 @@ router.post("/authenticate", async (req, res) => {
     return res.status(400).send({ error: "Invalid password" });
   }
 
+  //hides passwords in the route response
+  user.password = undefined;
+
   //returns user info in case success
   res.send({ user });
 });
